@@ -17,7 +17,7 @@ class TT_Manage_Teamwork{
         //register_activation_hook( __FILE__, array( $this, 'tt_table_create' ) );
         //register_activation_hook( __FILE__, array( $this, 'tt_import_dummy_data' ) );
         add_action( 'plugins_loaded', array( $this, 'tt_update_db_if_need' ) );
-        
+        add_action( 'init', array( $this, 'tt_languages' ) );
         //Require needed files
         
     }
@@ -108,6 +108,10 @@ class TT_Manage_Teamwork{
         $wpdb->query( $check_foreign_key_2 );
     }
     
+    public function tt_languages(){
+        load_plugin_textdomain( 'manage_teamwork', false, dirname( plugin_basename(__FILE__) ));
+    }
+    
 }
 
 $manage_teamwork = new TT_Manage_Teamwork();
@@ -115,5 +119,5 @@ $manage_teamwork = new TT_Manage_Teamwork();
 register_activation_hook( __FILE__, array( $manage_teamwork, 'tt_table_create' ) );
 register_deactivation_hook( __FILE__, array( $manage_teamwork, 'tt_drop_table' ) );
 
-require_once( TT_MANAGE_TEAMWORK_URI . '/inc/class_table_list_table.php' );
+require_once( TT_MANAGE_TEAMWORK_URI . '/inc/class_table_list_table_nhanvien.php' );
 require_once( TT_MANAGE_TEAMWORK_URI . '/admin_view/admin_view_table_nhanvien.php' );
